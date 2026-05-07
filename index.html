@@ -56,6 +56,41 @@
   
         <script>        window._pwInitialPath = "/";
 </script>
+        <!-- Redirect webpack JS chunk loading to peachweb.io -->
+        <script>
+          (function() {
+            var _origCreate = document.createElement.bind(document);
+            document.createElement = function(tag) {
+              var el = _origCreate(tag);
+              if (tag.toLowerCase() === 'script') {
+                var _origSetAttr = el.setAttribute.bind(el);
+                el.setAttribute = function(name, value) {
+                  if (name === 'src' && typeof value === 'string' && value.includes('.script.js') && !value.startsWith('https://peachweb.io')) {
+                    // Extract just the filename (e.g. "658.script.js") and load from peachweb.io
+                    var filename = value.split('/').pop();
+                    value = 'https://peachweb.io/' + filename;
+                  }
+                  return _origSetAttr(name, value);
+                };
+                // Also intercept direct .src assignment
+                var _src = '';
+                Object.defineProperty(el, 'src', {
+                  get: function() { return _src; },
+                  set: function(v) {
+                    if (typeof v === 'string' && v.includes('.script.js') && !v.startsWith('https://peachweb.io')) {
+                      var filename = v.split('/').pop();
+                      v = 'https://peachweb.io/' + filename;
+                    }
+                    _src = v;
+                    _origSetAttr('src', v);
+                  },
+                  configurable: true
+                });
+              }
+              return el;
+            };
+          })();
+        </script>
         <script defer="defer" fetchpriority="high" src="script.js"></script>
         <script>
 function initLazyVideoWrapper(wrapper) {
