@@ -1,0 +1,19 @@
+{
+  "name": "quantum-pixel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "express": "^5.2.1",
+    "http-proxy-middleware": "^4.0.0",
+    "live-server": "^1.2.2",
+    "puppeteer": "^24.43.0"
+  }
+}
