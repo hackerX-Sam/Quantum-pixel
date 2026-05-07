@@ -1,13 +1,18 @@
 {
   "version": 2,
-  "rewrites": [
+  "builds": [
     {
-      "source": "/scene-state/:path*",
-      "destination": "https://peachweb.io/scene-state/:path*"
-    },
+      "src": "index.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "headers": [
     {
-      "source": "/:file((?!index\\.html|styles\\.css|website-base\\.css|sw\\.js|script\\.js|ui-state\\.json|peachweb-favico2n\\.png|robots\\.txt).+\\.(js|json|css|wasm|glb|gltf|webp|png|svg|jpg|mp4|woff|woff2|ttf|otf))",
-      "destination": "https://peachweb.io/:file"
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
     }
   ]
 }
