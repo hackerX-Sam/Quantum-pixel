@@ -2,20 +2,12 @@
   "version": 2,
   "rewrites": [
     {
-      "source": "/api/proxy",
-      "destination": "/api/proxy"
+      "source": "/scene-state/:path*",
+      "destination": "https://peachweb.io/scene-state/:path*"
     },
     {
-      "source": "/((?!api/).*)",
-      "destination": "/$1"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" }
-      ]
+      "source": "/:file((?!index\\.html|styles\\.css|website-base\\.css|sw\\.js|script\\.js|ui-state\\.json|peachweb-favico2n\\.png|robots\\.txt).+\\.(js|json|css|wasm|glb|gltf|webp|png|svg|jpg|mp4|woff|woff2|ttf|otf))",
+      "destination": "https://peachweb.io/:file"
     }
   ]
 }
